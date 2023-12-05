@@ -181,6 +181,15 @@ DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, rtspUrl)
     return _rtspUrlFact;
 }
 
+DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, rtspSecondaryUrl)
+{
+    if (!_rtspSecondaryUrlFact) {
+        _rtspSecondaryUrlFact = _createSettingsFact(rtspSecondaryUrlName);
+        connect(_rtspSecondaryUrlFact, &Fact::valueChanged, this, &VideoSettings::_configChanged);
+    }
+    return _rtspSecondaryUrlFact;
+}
+
 DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, tcpUrl)
 {
     if (!_tcpUrlFact) {

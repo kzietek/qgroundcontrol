@@ -3025,6 +3025,12 @@
       <translation type="unfinished">Video RTSP Url</translation>
     </message>
     <message>
+      <extracomment>.QGC.MetaData.Facts[rtspSecondaryUrl].shortDescription, </extracomment>
+      <location filename="../src/Settings/Video.SettingsGroup.json"/>
+      <source>Video RTSP secondary Url</source>
+      <translation type="unfinished">Video RTSP secondary Url</translation>
+    </message>
+    <message>
       <extracomment>.QGC.MetaData.Facts[lowLatencyMode].shortDescription, </extracomment>
       <location filename="../src/Settings/Video.SettingsGroup.json"/>
       <source>Tweaks video for lower latency</source>

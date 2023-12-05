@@ -99,6 +99,7 @@ VideoManager::setToolbox(QGCToolbox *toolbox)
    connect(_videoSettings->videoSource(),   &Fact::rawValueChanged, this, &VideoManager::_videoSourceChanged);
    connect(_videoSettings->udpPort(),       &Fact::rawValueChanged, this, &VideoManager::_udpPortChanged);
    connect(_videoSettings->rtspUrl(),       &Fact::rawValueChanged, this, &VideoManager::_rtspUrlChanged);
+   connect(_videoSettings->rtspSecondaryUrl(),       &Fact::rawValueChanged, this, &VideoManager::_rtspSecondaryUrlChanged);
    connect(_videoSettings->tcpUrl(),        &Fact::rawValueChanged, this, &VideoManager::_tcpUrlChanged);
    connect(_videoSettings->aspectRatio(),   &Fact::rawValueChanged, this, &VideoManager::_aspectRatioChanged);
    connect(_videoSettings->lowLatencyMode(),&Fact::rawValueChanged, this, &VideoManager::_lowLatencyModeChanged);
@@ -522,6 +523,12 @@ VideoManager::_udpPortChanged()
 //-----------------------------------------------------------------------------
 void
 VideoManager::_rtspUrlChanged()
+{
+    _restartVideo(0);
+}
+//-----------------------------------------------------------------------------
+void
+VideoManager::_rtspSecondaryUrlChanged()
 {
     _restartVideo(0);
 }

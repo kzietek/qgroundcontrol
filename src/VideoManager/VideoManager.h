@@ -23,7 +23,6 @@
 #include "SubtitleWriter.h"
 
 Q_DECLARE_LOGGING_CATEGORY(VideoManagerLog)
-
 class VideoSettings;
 class Vehicle;
 class Joystick;
@@ -134,6 +133,7 @@ protected slots:
     void _videoSourceChanged        ();
     void _udpPortChanged            ();
     void _rtspUrlChanged            ();
+    void _rtspSecondaryUrlChanged   ();
     void _tcpUrlChanged             ();
     void _lowLatencyModeChanged     ();
     void _updateUVC                 ();

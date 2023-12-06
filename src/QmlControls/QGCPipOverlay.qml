@@ -101,6 +101,10 @@ Item {
         }
     }
 
+    function _changeCamera() {
+        QGroundControl.settingsManager.videoSettings.rtspSecondaryActivated.value = !QGroundControl.settingsManager.videoSettings.rtspSecondaryActivated.value
+    }
+
     Window {
         id:         window
         visible:    false
@@ -222,6 +226,23 @@ Item {
         MouseArea {
             anchors.fill:   parent
             onClicked:      _root._setPipIsExpanded(false)
+        }
+    }
+
+    Image {
+        id:             changeCamera
+        source:         "/qmlimages/MapSync.svg"
+        mipmap:         true
+        fillMode:       Image.PreserveAspectFit
+        anchors.right:   parent.right
+        anchors.bottom: parent.bottom
+        visible:        _isExpanded && (ScreenTools.isMobile || pipMouseArea.containsMouse)
+        height:         ScreenTools.defaultFontPixelHeight * 2.5
+        width:          ScreenTools.defaultFontPixelHeight * 2.5
+        sourceSize.height:  height
+        MouseArea {
+            anchors.fill:   parent
+            onClicked:      _root._changeCamera()
         }
     }
 

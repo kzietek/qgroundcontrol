@@ -26,6 +26,13 @@
     "default":     ""
 },
 {
+    "name":             "rtspSecondaryActivated",
+    "shortDesc": "Activate secondary RTSP stream",
+    "longDesc":  "Activates the second RTSP stream which enforces camera source change.",
+    "type":             "bool",
+    "default":     false
+},
+{
     "name":             "rtspSecondaryUrl",
     "shortDesc": "Secondary video RTSP Url",
     "longDesc":  "RTSP url address and port to bind to for video stream. Example: rtsp://192.168.42.1:554/live",

@@ -342,6 +342,23 @@ Rectangle {
                                 }
 
                                 QGCLabel {
+                                    id:         rtspSecondaryActivatedLabel
+                                    text:       qsTr("Use secondary RTSP URL")
+                                    visible:    !_videoAutoStreamConfig && _isRTSP && _videoSettings.rtspUrl.visible
+                                }
+                                // FactCheckBox {
+                                //     text:       qsTr("Use secondary RTSP URL")
+                                //     fact:       _rtspSecondaryActivated
+                                //     visible:    rtspSecondaryActivatedLabel.visible
+                                //     property Fact _rtspSecondaryActivated: QGroundControl.settingsManager.appSettings.rtspSecondaryActivated
+                                // }
+                                FactCheckBox {
+                                    text:       qsTr("Use secondary RTSP URL")
+                                    fact:       _videoSettings.rtspSecondaryActivated
+                                    visible:    rtspSecondaryUrlLabel.visible
+                                }
+
+                                QGCLabel {
                                      id:         rtspSecondaryUrlLabel
                                      text:       qsTr("RTSP secondary URL")
                                      visible:    !_videoAutoStreamConfig && _isRTSP && _videoSettings.rtspSecondaryUrl.visible

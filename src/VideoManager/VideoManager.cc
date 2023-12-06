@@ -99,6 +99,7 @@ VideoManager::setToolbox(QGCToolbox *toolbox)
    connect(_videoSettings->videoSource(),   &Fact::rawValueChanged, this, &VideoManager::_videoSourceChanged);
    connect(_videoSettings->udpPort(),       &Fact::rawValueChanged, this, &VideoManager::_udpPortChanged);
    connect(_videoSettings->rtspUrl(),       &Fact::rawValueChanged, this, &VideoManager::_rtspUrlChanged);
+   connect(_videoSettings->rtspSecondaryActivated(),       &Fact::rawValueChanged, this, &VideoManager::_rtspSecondaryActivatedChanged);
    connect(_videoSettings->rtspSecondaryUrl(),       &Fact::rawValueChanged, this, &VideoManager::_rtspSecondaryUrlChanged);
    connect(_videoSettings->tcpUrl(),        &Fact::rawValueChanged, this, &VideoManager::_tcpUrlChanged);
    connect(_videoSettings->aspectRatio(),   &Fact::rawValueChanged, this, &VideoManager::_aspectRatioChanged);
@@ -526,6 +527,14 @@ VideoManager::_rtspUrlChanged()
 {
     _restartVideo(0);
 }
+
+//-----------------------------------------------------------------------------
+void
+VideoManager::_rtspSecondaryActivatedChanged()
+{
+    _restartVideo(0);
+}
+
 //-----------------------------------------------------------------------------
 void
 VideoManager::_rtspSecondaryUrlChanged()
@@ -740,8 +749,17 @@ VideoManager::_updateSettings(unsigned id)
         settingsChanged |= _updateVideoUri(0, QStringLiteral("udp265://0.0.0.0:%1").arg(_videoSettings->udpPort()->rawValue().toInt()));
     else if (source == VideoSettings::videoSourceMPEGTS)
         settingsChanged |= _updateVideoUri(0, QStringLiteral("mpegts://0.0.0.0:%1").arg(_videoSettings->udpPort()->rawValue().toInt()));
-    else if (source == VideoSettings::videoSourceRTSP)
-        settingsChanged |= _updateVideoUri(0, _videoSettings->rtspUrl()->rawValue().toString());
+    else if (source == VideoSettings::videoSourceRTSP) {
+        if (_videoSettings->rtspSecondaryActivated()->rawValue().toBool()) {
+            qCCritical(VideoManagerLog)
+                << "SECONDARY Video source URI \"" << source << "\" is activated at " << _videoSettings->rtspSecondaryUrl()->rawValue().toString() << ".";
+            settingsChanged |= _updateVideoUri(0, _videoSettings->rtspSecondaryUrl()->rawValue().toString());
+        } else {
+            qCCritical(VideoManagerLog)
+                << "PRIMARY Video source URI \"" << source << "\" is activated at " << _videoSettings->rtspUrl()->rawValue().toString() << ".";
+            settingsChanged |= _updateVideoUri(0, _videoSettings->rtspUrl()->rawValue().toString());
+        }
+    }
     else if (source == VideoSettings::videoSourceTCP)
         settingsChanged |= _updateVideoUri(0, QStringLiteral("tcp://%1").arg(_videoSettings->tcpUrl()->rawValue().toString()));
     else if (source == VideoSettings::videoSource3DRSolo)

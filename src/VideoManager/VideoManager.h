@@ -133,6 +133,7 @@ protected slots:
     void _videoSourceChanged        ();
     void _udpPortChanged            ();
     void _rtspUrlChanged            ();
+    void _rtspSecondaryActivatedChanged   ();
     void _rtspSecondaryUrlChanged   ();
     void _tcpUrlChanged             ();
     void _lowLatencyModeChanged     ();
